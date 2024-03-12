@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ page_title }}</title>
+  </head>
+  <body>
+    {% if weather_now %}
+
+    <h1>{{city}}</h1>
+
+    <p>
+      Погода сегодня: {{ weather_now.temp_C }}°C,<br />
+      Влажность: {{ weather_now.humidity }}%,<br />
+      Cкорость ветра: {{ weather_now.windspeedKmph }} км/ч,<br />
+      Давление: {{ weather_now.pressure }} мм.рт.ст.<br />
+    </p>
+    <p>
+      {% if weather %} {% for day_weather in weather %} Погода на {{
+      day_weather.date.replace('2024-', '') }}: {{ day_weather.avgtempC }}°C<br />
+      {% endfor %} {% else %}
+    </p>
+    <p>Прогноз на ближайшие дни недоступен</p>
+    {% endif %} {% else %}
+    <p>Введите название города для получения прогноза погоды</p>
+    {% endif %}
+
+    <form action="/" method="post">
+      <label for="city">Введите город:</label>
+      <input
+        type="text"
+        id="city"
+        name="city"
+        placeholder="Омск, Россия"
+        required
+      />
+      <button type="submit">Узнать погоду</button>
+    </form>
+  </body>
+</html>
